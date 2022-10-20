@@ -31,18 +31,20 @@
     }
 
     .buttons button {
+        font-size: 16px;
         background-color: #8bd3dd;
         color: black;
         border: 1px solid rgb(48, 47, 47);
         border-radius: 6px;
         padding: 5px;
         margin-bottom: 10px;
-        box-shadow: 6.5px 6.5px 0px -2px rgba(52, 51, 51, 0.75);
-        -webkit-box-shadow: 6.5px 6.5px 0px -2px rgba(52, 51, 51, 0.75);
-        -moz-box-shadow: 6.5px 6.5px 0px -2px rgba(52, 51, 51, 0.75);
+        box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
+        -webkit-box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
+        -moz-box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
     }
 
     .buttons button:hover {
+        font-size: 16px;
         transform: scale(1.1);
         transition: 0.3s;
         background-color: rgb(128, 47, 44);
@@ -66,10 +68,10 @@
     table {
         border-collapse: collapse;
         font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-        width: 90%;
-        box-shadow: 10px 8px 0px -2px rgba(52, 51, 51, 0.75);
-        -webkit-box-shadow: 10px 8px 0px -2px rgba(52, 51, 51, 0.75);
-        -moz-box-shadow: 10px 8px 0px -2px rgba(52, 51, 51, 0.75);
+        width: 60%;
+        box-shadow: 13px 12px 0px -2px rgba(52, 51, 51, 0.75);
+        -webkit-box-shadow: 13px 12px 0px -2px rgba(52, 51, 51, 0.75);
+        -moz-box-shadow: 13px 12px 0px -2px rgba(52, 51, 51, 0.75);
         border-collapse: separate;
         border: solid black 1px;
         border-radius: 6px;
@@ -102,14 +104,15 @@
     }
 
     .pas th {
-        color: black;
+        color: #5a5757;
         font-size: x-large;
     }
 
     select {
+        font-size: 16px;
         background-color: #8bd3dd;
         color: black;
-        height: 2rem;
+        height: 2.4rem;
         border: 1px solid black;
         border-radius: 6px;
         padding: 0px 8px;
@@ -119,6 +122,7 @@
     }
 
     select:hover {
+        font-size: 16px;
         transform: scale(1.1);
         transition: 0.3s;
         background-color: rgb(128, 47, 44);
@@ -152,7 +156,7 @@
         <table border="1">
             <tbody class="pas">
                 <tr>
-                    <th>id</th>
+                    <!-- <th>id</th> -->
                     <th>tahun</th>
                     <th>jenis</th>
                     <th>hasil</th>
@@ -162,8 +166,10 @@
 
             </tbody>
         </table>
-        <h2>Ulangan Tengah Semester</h2>
-        <h2>Data Produksi</h2>
+        <center id="judul">
+            <h2>Ulangan Tengah Semester</h2>
+            <h2>Data Produksi</h2>
+        </center>
         <br>
     </div>
 
@@ -176,15 +182,18 @@
     }).then((data) => {
         const show = document.getElementById('show');
         const hidden = document.getElementById('hidden');
+        const judul = document.getElementById('judul');
         isi = data;
 
         // show
         show.addEventListener('click', () => {
+            judul.style.display = 'none';
             Tampil(data)
         });
 
         // hidden
         hidden.addEventListener('click', () => {
+            judul.style.display = 'block';
             Kosong(data)
         });
 
@@ -196,16 +205,16 @@
         konz.innerHTML = '';
         for (let i = 0; i < data.length; i++) {
             let tr = document.createElement('tr');
-            let td1 = document.createElement('td');
+            // let td1 = document.createElement('td');
             let td2 = document.createElement('td');
             let td3 = document.createElement('td');
             let td4 = document.createElement('td');
 
-            td1.innerHTML = i + 1;
+            // td1.innerHTML = i + 1;
             td2.innerHTML = data[i].tahun;
             td3.innerHTML = data[i].jenis;
             td4.innerHTML = data[i].hasil;
-            tr.appendChild(td1);
+            // tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
             tr.appendChild(td4);
@@ -223,6 +232,7 @@
         const option = document.getElementById('option').value;
         const sort = document.getElementById('sortdata').value;
         var data = isi;
+        judul.style.display = 'none';
 
         if (sort == 'tahun') {
             if (option == 'Descending') {
