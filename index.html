@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 50%;
+    }
+
+    tr {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    td {
+        border: 1px solid black;
+
+    }
+
+    .buttons {
+        margin-bottom: 22px;
+    }
+
+    .pas {
+        background-color: green;
+    }
+
+    .pas td {
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h2>Dapa Produksu</h2>
+
+        <div class="buttons">
+            <button id="show">Show</button>
+            <button id="hidden">Hidden</button>
+            <select name="sortdata" id="sortdata" onchange="SortData()">
+                <option value="" hidden>pilih</option>
+                <option value="tahun">tahun</option>
+                <option value="jenis">jenis</option>
+                <option value="hasil">hasil</option>
+            </select>
+            <select name="option" id="option" onchange="SortData()">
+                <option value="Descending">Descending</option>
+                <option value="kecil">Ascending</option>
+            </select>
+        </div>
+        <table>
+            <tbody class="pas">
+                <tr>
+                    <td>id</td>
+                    <td>tahun</td>
+                    <td>jenis</td>
+                    <td>hasil</td>
+                </tr>
+            </tbody>
+            <tbody id="konz">
+
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+<script>
+    var isi = []
+
+    fetch('./Produksi.json').then((data) => {
+        return data.json();
+    }).then((data) => {
+        const show = document.getElementById('show');
+        const hidden = document.getElementById('hidden');
+        isi = data;
+
+        // show
+        show.addEventListener('click', () => {
+            Tampil(data)
+        });
+
+        // hidden
+        hidden.addEventListener('click', () => {
+            Kosong(data)
+        });
+        // hasil(dats);
+        // Sort
+        Asscanding()
+    })
+
+
+    function Tampil(data) {
+        let konz = document.getElementById('konz');
+        konz.innerHTML = '';
+        for (let i = 0; i < data.length; i++) {
+            let tr = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+
+            td1.innerHTML = i + 1;
+            td2.innerHTML = data[i].tahun;
+            td3.innerHTML = data[i].jenis;
+            td4.innerHTML = data[i].hasil;
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            konz.appendChild(tr);
+        }
+    }
+
+    function Kosong(data) {
+        let konz = document.getElementById('konz');
+        konz.innerHTML = '';
+    }
+
+
+    function SortData() {
+        const option = document.getElementById('option').value;
+        const sort = document.getElementById('sortdata').value;
+        var data = isi;
+
+        if (sort == 'tahun') {
+            if (option == 'Descending') {
+                data.sort((a, b) => {
+                    // dari terbesar hingga terkeil
+                    // b == besar dan a == keci
+                    return b.tahun - a.tahun;
+                })
+                Tampil(data)
+            } else {
+                data.sort((a, b) => {
+                    return a.tahun - b.tahun;
+                })
+                Tampil(data)
+            }
+        }
+        if (sort == 'jenis') {
+           if (option == 'Descending') {
+               data.sort((a, b) => {
+                   return b.jenis.localeCompare(a.jenis);
+               })
+               Tampil(data)
+            } else {
+                data.sort((a, b) => {
+                   return a.jenis.localeCompare(b.jenis);
+               })
+                Tampil(data)
+            }
+        }
+        if (sort == 'hasil') {
+           if (option == 'Descending') {
+                data.sort((a, b) => {
+                    return b.hasil - a.hasil;
+                })
+                Tampil(data)
+            } else {
+                data.sort((a, b) => {
+                    return a.hasil - b.hasil;
+                })
+                Tampil(data)
+            }
+        }
+
+       
+
+    }
+
+
+   
+
+
+</script>
+
+</html>
