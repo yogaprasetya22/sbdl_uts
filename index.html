@@ -9,46 +9,132 @@
 </head>
 
 <style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+
+    }
+
     .container {
-        width: 100%;
         display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.1rem;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 1.65rem;
+    }
+
+    .buttons button {
+        background-color: tomato;
+        color: whitesmoke;
+        border: 1px solid rgb(48, 47, 47);
+        border-radius: 6px;
+        padding: 5px;
+        margin-bottom: 10px;
+        box-shadow: 6.5px 6.5px 0px -2px rgba(52, 51, 51, 0.75);
+        -webkit-box-shadow: 6.5px 6.5px 0px -2px rgba(52, 51, 51, 0.75);
+        -moz-box-shadow: 6.5px 6.5px 0px -2px rgba(52, 51, 51, 0.75);
+    }
+
+    .buttons button:hover {
+        transform: scale(1.1);
+        transition: 0.3s;
+        background-color: rgb(128, 47, 44);
+        color: rgb(248, 241, 240);
+        border-radius: 6px;
+        border: 1px solid tomato;
+        box-shadow: 4px 4px 0px -2px rgba(52, 51, 51, 0.75);
+        -webkit-box-shadow: 4px 4px 0px -2px rgba(52, 51, 51, 0.75);
+        -moz-box-shadow: 4px 4px 0px -2px rgba(52, 51, 51, 0.75);
+        font-weight: bold;
+    }
+
+    h2 {
+        text-shadow: 2px 1.2px #525252;
+        color: gray;
+        font-size: xx-large;
+        font-weight: 600;
+        font-family: Georgia, "Times New Roman", Times, serif;
     }
 
     table {
         border-collapse: collapse;
-        width: 50%;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        width: 90%;
+        box-shadow: 10px 8px 0px -2px rgba(52, 51, 51, 0.75);
+        -webkit-box-shadow: 10px 8px 0px -2px rgba(52, 51, 51, 0.75);
+        -moz-box-shadow: 10px 8px 0px -2px rgba(52, 51, 51, 0.75);
+        border-collapse: separate;
+        border: solid black 1px;
+        border-radius: 6px;
+        transition: all 0.6s ease-in-out;
+        margin-bottom: 10rem;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
     tr {
-        border: 1px solid black;
+        border: 1px solid gray;
+        padding: 15px;
         text-align: center;
+        color: black;
+    }
+
+    th {
+        font-size: 1.3rem;
+        padding: 10px;
+        background-color: tomato;
+        color: whitesmoke;
     }
 
     td {
-        border: 1px solid black;
-
-    }
-
-    .buttons {
-        margin-bottom: 22px;
+        padding: 4px;
+        font-family: "Times New Roman", Times, serif;
     }
 
     .pas {
-        background-color: green;
+        background-color: tomato;
     }
 
-    .pas td {
+    .pas th {
         color: white;
+    }
+
+    select {
+        background-color: tomato;
+        color: whitesmoke;
+        width: 8vw;
+        height: 2rem;
+        border: 1px solid grey;
+        border-radius: 6px;
+        padding: 0px 8px;
+        box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
+        -webkit-box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
+        -moz-box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
+    }
+
+    select:hover {
+        transform: scale(1.1);
+        transition: 0.3s;
+        background-color: rgb(128, 47, 44);
+        color: rgb(248, 241, 240);
+        border-radius: 6px;
+        border: 1px solid tomato;
+        box-shadow: 4px 4px 0px -2px rgba(52, 51, 51, 0.75);
+        -webkit-box-shadow: 4px 4px 0px -2px rgba(52, 51, 51, 0.75);
+        -moz-box-shadow: 4px 4px 0px -2px rgba(52, 51, 51, 0.75);
+        font-weight: bold;
     }
 </style>
 
 <body>
     <div class="container">
-        <h2>Dapa Produksu</h2>
-
+        <br>
         <div class="buttons">
             <button id="show">Show</button>
             <button id="hidden">Hidden</button>
@@ -63,20 +149,22 @@
                 <option value="kecil">Ascending</option>
             </select>
         </div>
-        <table>
+        <table border="1">
             <tbody class="pas">
                 <tr>
-                    <td>id</td>
-                    <td>tahun</td>
-                    <td>jenis</td>
-                    <td>hasil</td>
+                    <th>id</th>
+                    <th>tahun</th>
+                    <th>jenis</th>
+                    <th>hasil</th>
                 </tr>
             </tbody>
             <tbody id="konz">
 
             </tbody>
         </table>
-
+        <h2>Ulangan Tengah Semester</h2>
+        <h2>Data Produksi</h2>
+        <br>
     </div>
 
 </body>
@@ -141,8 +229,6 @@
         if (sort == 'tahun') {
             if (option == 'Descending') {
                 data.sort((a, b) => {
-                    // dari terbesar hingga terkeil
-                    // b == besar dan a == keci
                     return b.tahun - a.tahun;
                 })
                 Tampil(data)
@@ -152,22 +238,20 @@
                 })
                 Tampil(data)
             }
-        }
-        if (sort == 'jenis') {
-           if (option == 'Descending') {
-               data.sort((a, b) => {
-                   return b.jenis.localeCompare(a.jenis);
-               })
-               Tampil(data)
+        } else if (sort == 'jenis') {
+            if (option == 'Descending') {
+                data.sort((a, b) => {
+                    return b.jenis.localeCompare(a.jenis);
+                })
+                Tampil(data)
             } else {
                 data.sort((a, b) => {
-                   return a.jenis.localeCompare(b.jenis);
-               })
+                    return a.jenis.localeCompare(b.jenis);
+                })
                 Tampil(data)
             }
-        }
-        if (sort == 'hasil') {
-           if (option == 'Descending') {
+        } else if (sort == 'hasil') {
+            if (option == 'Descending') {
                 data.sort((a, b) => {
                     return b.hasil - a.hasil;
                 })
@@ -180,12 +264,12 @@
             }
         }
 
-       
+
 
     }
 
 
-   
+
 
 
 </script>
