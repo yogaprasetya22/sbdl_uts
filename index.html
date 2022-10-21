@@ -240,6 +240,7 @@
         // search
         const search = document.getElementById('search');
         search.addEventListener('keyup', (e) => {
+            judul.style.display = 'none';
             const searchValue = e.target.value.toLowerCase();
             const filterData = data.filter((data) => {
                 return (
