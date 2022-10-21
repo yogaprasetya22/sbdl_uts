@@ -134,11 +134,37 @@
         -moz-box-shadow: 4px 4px 0px -2px rgba(52, 51, 51, 0.75);
         font-weight: bold;
     }
+
+    .underline {
+        text-decoration: underline tomato solid 2px !important;
+    }
+
+    .search {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: row;
+        gap: 1.65rem;
+    }
+
+    .search input {
+        font-size: 16px;
+        background-color: #8bd3dd;
+        color: black;
+        height: 2.4rem;
+        border: 1px solid black;
+        border-radius: 6px;
+        padding: 0px 8px;
+        box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
+        -webkit-box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
+        -moz-box-shadow: 7.91px 8.34px 0px -2px rgba(52, 51, 51, 0.75);
+    }
 </style>
 
 <body>
     <div class="container">
-        <br>
+        <div class="search">
+            <input type="text" id="search" placeholder="Search by name" />
+        </div>
         <div class="buttons">
             <button id="show">Show</button>
             <button id="hidden">Hidden</button>
@@ -197,6 +223,20 @@
             Kosong(data)
         });
 
+        // search
+        const search = document.getElementById('search');
+        search.addEventListener('keyup', (e) => {
+            const searchValue = e.target.value.toLowerCase();
+            const filterData = data.filter((data) => {
+                return (
+                    data.jenis.toLowerCase().includes(searchValue) ||
+                    data.hasil.toLowerCase().includes(searchValue) ||
+                    data.tahun.toLowerCase().includes(searchValue)
+                );
+            });
+            Tampil(filterData);
+        });
+
     })
 
 
@@ -231,55 +271,59 @@
     function SortData() {
         const option = document.getElementById('option').value;
         const sort = document.getElementById('sortdata').value;
+        const underline = document.getElementsByClassName('pas')[0].getElementsByTagName('th');
         var data = isi;
         judul.style.display = 'none';
 
         if (sort == 'tahun') {
+            underline[0].classList.add('underline');
+            underline[1].classList.remove('underline');
+            underline[2].classList.remove('underline');
             if (option == 'Descending') {
                 data.sort((a, b) => {
-                    return b.tahun - a.tahun;
+                    return b.tahun - a.tahun || b.jenis.localeCompare(a.jenis) || b.hasil - a.hasil;
                 })
                 Tampil(data)
             } else {
                 data.sort((a, b) => {
-                    return a.tahun - b.tahun;
+                    return a.tahun - b.tahun || a.jenis.localeCompare(b.jenis) || a.hasil - b.hasil;
                 })
                 Tampil(data)
             }
         } else if (sort == 'jenis') {
+            underline[1].classList.add('underline');
+            underline[0].classList.remove('underline');
+            underline[2].classList.remove('underline');
             if (option == 'Descending') {
                 data.sort((a, b) => {
-                    return b.jenis.localeCompare(a.jenis);
+                    return b.jenis.localeCompare(a.jenis) || b.tahun - a.tahun || b.hasil - a.hasil;
                 })
                 Tampil(data)
             } else {
                 data.sort((a, b) => {
-                    return a.jenis.localeCompare(b.jenis);
+                    return a.jenis.localeCompare(b.jenis) || a.tahun - b.tahun || a.hasil - b.hasil;
                 })
                 Tampil(data)
             }
         } else if (sort == 'hasil') {
+            underline[2].classList.add('underline');
+            underline[0].classList.remove('underline');
+            underline[1].classList.remove('underline');
             if (option == 'Descending') {
                 data.sort((a, b) => {
-                    return b.hasil - a.hasil;
+                    return b.hasil - a.hasil || b.tahun - a.tahun || b.jenis.localeCompare(a.jenis);
                 })
                 Tampil(data)
             } else {
                 data.sort((a, b) => {
-                    return a.hasil - b.hasil;
+                    return a.hasil - b.hasil || a.tahun - b.tahun || a.jenis.localeCompare(b.jenis);
                 })
                 Tampil(data)
             }
         }
-
-
-
     }
 
-
-
-
-
+   
 </script>
 
 </html>
