@@ -404,10 +404,12 @@
             const month = date.getMonth() + 1;
             const day = date.getDate();
             const hour = date.getHours();
+            const valHour = hour >= 10 ? hour : '0' + hour;
             const minute = date.getMinutes();
+            const valMinute = minute < 10 ? '0' + minute : minute;
             const second = date.getSeconds() + 1;
             const valSeccond = second < 10 ? '0' + second : second;
-            time.innerHTML = `${day}/${month}/${year} ${hour}:${minute}:${valSeccond}`;
+            time.innerHTML = `${day}/${month}/${year} ${valHour}:${valMinute}:${valSeccond}`;
         })
     }, 1000);
 
